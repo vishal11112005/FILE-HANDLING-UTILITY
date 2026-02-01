@@ -1,0 +1,52 @@
+import java.io.*;
+import java.util.*;
+
+public class FileUtility {
+    public static void main(String[] args) throws Exception {
+        Scanner sc = new Scanner(System.in);
+        File file = new File("data.txt");
+
+        System.out.println("1.Write  2.Read  3.Modify");
+        int choice = sc.nextInt();
+        sc.nextLine();
+
+        if (choice == 1) {
+            FileWriter fw = new FileWriter(file);
+            System.out.println("Enter text:");
+            fw.write(sc.nextLine());
+            fw.close();
+            System.out.println("Written successfully");
+        }
+
+        else if (choice == 2) {
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            String line;
+            while ((line = br.readLine()) != null) {
+                System.out.println(line);
+            }
+            br.close();
+        }
+
+        else if (choice == 3) {
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = br.readLine()) != null) {
+                sb.append(line).append("\n");
+            }
+            br.close();
+
+            System.out.println("Enter text to add:");
+            sb.append(sc.nextLine());
+
+            FileWriter fw = new FileWriter(file);
+            fw.write(sb.toString());
+            fw.close();
+            System.out.println("Modified successfully");
+        }
+
+        else {
+            System.out.println("Invalid choice");
+        }
+    }
+}
